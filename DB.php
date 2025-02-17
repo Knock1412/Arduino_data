@@ -9,32 +9,30 @@ include_once(__DIR__ . '/includes/navbar.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($titre) ?></title>
+    
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            text-align: center;
-        }
-        .graph-container {
-            width: 80%;
-            max-width: 900px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-    </style>
 </head>
-<body>
+<body class="bg-light">
 
-<h1>📊 Graphique en temps réel</h1>
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">📡 Projet Arduino Ultrason</a>
+    </div>
+</nav>
 
-<div class="graph-container">
-    <canvas id="graphMesures"></canvas>
+<div class="container mt-4">
+    <h2 class="text-center text-primary">📊 Graphique des Mesures</h2>
+
+    <div class="card p-4 shadow-sm">
+        <canvas id="graphMesures"></canvas>
+    </div>
 </div>
 
+<!-- Chargement du Graph -->
 <script>
     async function fetchData() {
         try {
@@ -70,8 +68,11 @@ include_once(__DIR__ . '/includes/navbar.php');
                 label: 'Distance (cm)',
                 data: [],
                 borderColor: 'blue',
+                backgroundColor: 'rgba(0, 0, 255, 0.2)',
                 borderWidth: 2,
-                fill: false
+                fill: true,
+                pointRadius: 5,
+                pointBackgroundColor: 'red'
             }]
         },
         options: {
@@ -83,7 +84,6 @@ include_once(__DIR__ . '/includes/navbar.php');
         }
     });
 
-    // Rafraîchir les données toutes les 5 secondes
     setInterval(fetchData, 5000);
     fetchData();
 </script>
